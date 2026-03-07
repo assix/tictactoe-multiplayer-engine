@@ -1,5 +1,5 @@
 # TicTacToe Multiplayer Engine
-![Demo](screenshots/gui.png)
+
 A **room-based multiplayer Tic-Tac-Toe engine** built with a Python **FastAPI server** and multiple clients.
 
 This project demonstrates a simple **client-server multiplayer architecture** with support for:
