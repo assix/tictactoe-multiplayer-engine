@@ -189,18 +189,6 @@ quit
 
 ---
 
-# Screenshots
-
-Add your screenshots in a folder like this:
-
-``
-screenshots/
-├── gui.png
-└── cli.png
-``
-
-Then reference them here:
-
 ### GUI Client
 
 ![GUI Screenshot](screenshots/gui.png)
