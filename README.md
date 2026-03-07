@@ -301,11 +301,3 @@ Possible extensions:
 # License
 
 MIT License
-
----
-
-# Author
-
-Created by **assix**
-
-GitHub: https://github.com/assix
