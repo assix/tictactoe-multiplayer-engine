@@ -34,7 +34,7 @@ The goal of this repository is to provide a **simple multiplayer game engine exa
 
 # Project Structure
 
-``
+`
 tictactoe-multiplayer-engine/
 ├── AndroidApp/
 │
@@ -50,7 +50,7 @@ tictactoe-multiplayer-engine/
 ├── README.md
 │
 └── .gitignore
-``
+`
 
 ---
 
@@ -164,28 +164,28 @@ Press **Enter** to auto-join the default room.
 
 Board layout:
 
-``
+`
  1 | 2 | 3
 ---+---+---
  4 | 5 | 6
 ---+---+---
  7 | 8 | 9
-``
+`
 
 Example move:
 
-``
+`
 > 5
-``
+`
 
 Other commands:
 
-``
+`
 newgame
 rooms
 refresh
 quit
-``
+`
 
 ---
 
