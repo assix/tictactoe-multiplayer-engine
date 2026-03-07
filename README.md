@@ -1,5 +1,5 @@
 # TicTacToe Multiplayer Engine
-
+![Demo](screenshots/gui.png)
 A **room-based multiplayer Tic-Tac-Toe engine** built with a Python **FastAPI server** and multiple clients.
 
 This project demonstrates a simple **client-server multiplayer architecture** with support for:
@@ -63,10 +63,10 @@ tictactoe-multiplayer-engine/
 
 Ubuntu install example:
 
-``
+```
 sudo apt update
 sudo apt install python3-tk
-``
+```
 
 ---
 
@@ -74,23 +74,52 @@ sudo apt install python3-tk
 
 Clone the repository:
 
-``
+```
 git clone https://github.com/assix/tictactoe-multiplayer-engine.git
 cd tictactoe-multiplayer-engine
-``
+```
 
 Create a Python virtual environment:
 
-``
+```
 python3 -m venv .venv
 source .venv/bin/activate
-``
+```
 
 Install dependencies:
 
 ``
 pip install -r requirements.txt
 ``
+
+---
+
+## Architecture
+
+The system uses a simple client-server architecture.
+
+```
++-------------+        HTTP API        +----------------+
+|  CLI Client |  <------------------>  |                |
+|  GUI Client |                        |   FastAPI      |
+| Android App |                        |  Game Server   |
++-------------+                        |                |
+                                      +----------------+
+                                               |
+                                               |
+                                        In-memory rooms
+                                        game state
+                                        score tracking
+```
+
+Clients communicate with the FastAPI server using REST endpoints.
+
+The server manages:
+
+- rooms
+- players
+- game state
+- score tracking
 
 ---
 
