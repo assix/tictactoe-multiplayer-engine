@@ -1,197 +1,136 @@
 # TicTacToe Multiplayer Engine
 
-A **room-based multiplayer Tic-Tac-Toe engine** built with a Python **FastAPI server** and multiple clients.
+A room-based multiplayer Tic-Tac-Toe project built with a Python FastAPI server and multiple clients:
 
-This project demonstrates a simple **client-server multiplayer architecture** with support for:
+- Linux CLI client
+- Linux Tkinter GUI client
+- Android client
 
-- Linux **CLI client**
-- Linux **Tkinter GUI client**
-- **Android client**
-- Room-based matchmaking
-- Score tracking across rounds
-- Default auto-join room
-- Multiple simultaneous rooms
-- New game without leaving the room
+This repository demonstrates a simple client-server multiplayer architecture with room-based gameplay, score tracking, room management, and cross-platform clients.
 
-The goal of this repository is to provide a **simple multiplayer game engine example** that can run locally or be deployed to the cloud.
-
----
-
-# Features
+## Features
 
 - FastAPI multiplayer game server
-- Room-based multiplayer matchmaking
-- Default room + custom rooms
+- Room-based matchmaking
+- Default room plus custom rooms
 - CLI client for terminal gameplay
-- GUI client for desktop gameplay
-- Android client support
-- Score tracking
-- New Game functionality
-- Automatic room cleanup when players leave
-- Colored GUI pieces (Red **X**, Blue **O**)
+- GUI client for Linux desktop gameplay
+- Android client
+- Score tracking across rounds
+- New Game without leaving the room
+- Automatic room cleanup when players disconnect
+- Local or cloud-hosted deployment
 
----
+## Project Structure
 
-# Project Structure
-
-```
+```text
 tictactoe-multiplayer-engine/
 ├── AndroidApp/
-│
 ├── client.py
-│   CLI + GUI client application
-│
 ├── main.py
-│   FastAPI multiplayer game server
-│
 ├── requirements.txt
-│   Python dependencies
-│
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
----
+## Requirements
 
-# Requirements
-
-- Python **3.10+**
+- Python 3.10+
 - pip
-- Tkinter (for GUI client)
-- Android Studio (optional for Android client)
+- Tkinter for GUI mode on Linux
+- Java 17 for Android builds
+- Android SDK command-line tools or Android Studio for Android builds
 
-Ubuntu install example:
-
-```
-sudo apt update
-sudo apt install python3-tk
-```
-
----
-
-# Install
+## Python Setup
 
 Clone the repository:
 
-```
+```bash
 git clone https://github.com/assix/tictactoe-multiplayer-engine.git
 cd tictactoe-multiplayer-engine
 ```
 
-Create a Python virtual environment:
+Create a virtual environment:
 
-```
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
 Install dependencies:
 
-``
+```bash
 pip install -r requirements.txt
-``
-
----
-
-## Architecture
-
-The system uses a simple client-server architecture.
-
-```
-+-------------+        HTTP API        +----------------+
-|  CLI Client |  <------------------>  |                |
-|  GUI Client |                        |   FastAPI      |
-| Android App |                        |  Game Server   |
-+-------------+                        |                |
-                                      +----------------+
-                                               |
-                                               |
-                                        In-memory rooms
-                                        game state
-                                        score tracking
 ```
 
-Clients communicate with the FastAPI server using REST endpoints.
+On Ubuntu, install Tkinter if needed:
 
-The server manages:
+```bash
+sudo apt update
+sudo apt install python3-tk
+```
 
-- rooms
-- players
-- game state
-- score tracking
+## Run the Server Locally
 
----
-
-# Run the Server
-
-Start the FastAPI game server:
-
-``
+```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000 --no-access-log
-``
+```
 
-When the server starts it automatically creates the **DEFAULT room**.
+The server automatically creates the `DEFAULT` room on startup.
 
----
+## Run the Python Client
 
-# Run the Client
+### GUI mode
 
-## GUI Mode
-
-``
+```bash
 python3 client.py
-``
+```
 
-or explicitly:
+or
 
-``
+```bash
 python3 client.py --mode gui
-``
+```
 
----
+### CLI mode
 
-## CLI Mode
-
-``
+```bash
 python3 client.py --mode cli
-``
+```
 
----
+## Server Selection
 
-## Connect to a Remote Server
+The Python client defaults to the hosted server:
 
-``
-python3 client.py --server https://your-render-app.onrender.com
-``
+```text
+https://tictactoe-multiplayer-engine.onrender.com
+```
 
----
+Use the local server:
 
-# How to Play
+```bash
+python3 client.py --server local
+```
 
-## GUI Client
+Use the hosted server explicitly:
 
-1. Start the server
-2. Launch the GUI client
-3. The client will try to **auto-join the DEFAULT room**
-4. Select another room from the dropdown to switch
-5. Click **Create Room** to create a new room
-6. Click **New Game** to restart the match
+```bash
+python3 client.py --server remote
+```
 
-Gameplay is turn-based:
+Use any custom server URL:
 
-- **Red X**
-- **Blue O**
+```bash
+python3 client.py --server http://192.168.1.50:8000
+```
 
----
+## CLI Gameplay
 
-## CLI Client
-
-When the CLI starts:
-
-Press **Enter** to auto-join the default room.
+When the CLI starts, press Enter to auto-join the default room.
 
 Board layout:
 
-```
+```text
  1 | 2 | 3
 ---+---+---
  4 | 5 | 6
@@ -201,90 +140,83 @@ Board layout:
 
 Example move:
 
-```
+```text
 > 5
 ```
 
 Other commands:
 
-```
+```text
 newgame
 rooms
 refresh
 quit
 ```
 
----
+## Android App
 
-### GUI Client
+The Android client is located in:
 
-![GUI Screenshot](screenshots/gui.png)
+```text
+AndroidApp/
+```
 
-### CLI Client
+It supports:
 
-![CLI Screenshot](screenshots/cli.png)
+- auto-joining the `DEFAULT` room if space is available
+- creating a room
+- selecting available rooms from a dropdown
+- playing and starting a new game
+- connecting to the hosted Render server
 
----
+## Build the Android APK
 
-# Deploying the Server to Render
+Make sure Java 17 and the Android SDK are installed, then from the Android project root:
 
-You can easily host the multiplayer server using **Render**.
+```bash
+cd AndroidApp
+./gradlew assembleDebug
+```
 
-Render supports automatic deployments from GitHub and provides a public URL for your server.
+The APK will be generated at:
 
-https://render.com
+```text
+AndroidApp/app/build/outputs/apk/debug/app-debug.apk
+```
 
----
+## Hosted Server
 
-## Render Deployment Steps
+Public server URL:
 
-1. Push this repository to GitHub
-
-2. Go to **Render Dashboard**
-
-3. Click
-
-``
-New → Web Service
-``
-
-4. Connect your GitHub repository
-
-5. Use the following settings:
-
-Build Command
-
-``
-pip install -r requirements.txt
-``
-
-Start Command
-
-``
-uvicorn main:app --host 0.0.0.0 --port $PORT --no-access-log
-``
-
-6. Deploy
-
-Your server will be available at something like:
-
-``
+```text
 https://tictactoe-multiplayer-engine.onrender.com
-``
+```
 
-Clients can connect using:
+Python client example:
 
-``
-python3 client.py --server https://your-render-url.onrender.com
-``
+```bash
+python3 client.py --server remote
+```
 
----
+## Deploy the Server on Render
 
-# Suggested GitHub Topics
+This project can be deployed as a Python web service on Render.
 
-Add these to your repository topics:
+Recommended build command:
 
-``
+```bash
+pip install -r requirements.txt
+```
+
+Recommended start command:
+
+```bash
+uvicorn main:app --host 0.0.0.0 --port $PORT --no-access-log
+```
+
+## Suggested GitHub Topics
+
+```text
 tictactoe
 multiplayer
 fastapi
@@ -295,24 +227,17 @@ tkinter
 cli
 android
 render
-``
+```
 
----
+## Future Improvements
 
-# Future Improvements
-
-Possible extensions:
-
-- WebSocket real-time updates
-- Persistent database for rooms
+- WebSocket-based real-time updates
+- Persistent room and score storage
 - User accounts
 - Spectator mode
-- Web browser client
-- Docker deployment
-- Kubernetes scaling
+- Browser client
+- Automated APK builds with GitHub Actions
 
----
-
-# License
+## License
 
 MIT License

@@ -9,7 +9,10 @@ import uuid
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-DEFAULT_BASE_URL = "http://127.0.0.1:8000"
+DEFAULT_REMOTE_URL = "https://tictactoe-multiplayer-engine.onrender.com"
+DEFAULT_LOCAL_URL = "http://127.0.0.1:8000"
+DEFAULT_BASE_URL = DEFAULT_REMOTE_URL
+DEFAULT_SERVER_CHOICE = "remote"
 DEFAULT_MODE = "gui"
 DEFAULT_ROOM_ID = "DEFAULT"
 
@@ -741,35 +744,62 @@ class GuiApp:
 def print_startup_banner():
     print("")
     print("Tic-Tac-Toe Client")
-    print("=" * 44)
-    print(f"Defaults:")
+    print("=" * 52)
+    print("Defaults:")
     print(f"  mode   = {DEFAULT_MODE}")
-    print(f"  server = {DEFAULT_BASE_URL}")
+    print(f"  server = {DEFAULT_SERVER_CHOICE} ({DEFAULT_BASE_URL})")
     print(f"  room   = {DEFAULT_ROOM_ID}")
     print("")
     print("Options:")
-    print("  --mode gui|cli    or -m gui|cli")
-    print("  --server URL      or -s URL")
+    print("  --mode gui|cli                 or -m gui|cli")
+    print("  --server remote|local|URL      or -s remote|local|URL")
     print("")
-    print("Default behavior:")
-    print("  starts in GUI and tries to join DEFAULT")
-    print("=" * 44)
+    print("Server choices:")
+    print(f"  remote -> {DEFAULT_REMOTE_URL}")
+    print(f"  local  -> {DEFAULT_LOCAL_URL}")
+    print("")
+    print("Examples:")
+    print("  python3 client.py")
+    print("  python3 client.py --mode cli")
+    print("  python3 client.py --server local")
+    print("  python3 client.py --server remote")
+    print("  python3 client.py --server http://192.168.1.50:8000")
+    print("=" * 52)
     print("")
 
+def resolve_server(server_value: str) -> str:
+    value = server_value.strip().lower()
+
+    if value == "remote":
+        return DEFAULT_REMOTE_URL
+    if value == "local":
+        return DEFAULT_LOCAL_URL
+
+    return server_value.rstrip("/")
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Tic-Tac-Toe multiplayer client")
-    parser.add_argument("-m", "--mode", choices=["cli", "gui"], default=DEFAULT_MODE)
-    parser.add_argument("-s", "--server", default=DEFAULT_BASE_URL)
+    parser.add_argument(
+        "-m", "--mode",
+        choices=["cli", "gui"],
+        default=DEFAULT_MODE,
+        help=f"Client mode. Default: {DEFAULT_MODE}"
+    )
+    parser.add_argument(
+        "-s", "--server",
+        default=DEFAULT_SERVER_CHOICE,
+        help="Server target: remote, local, or full URL. Default: remote"
+    )
     return parser.parse_args()
-
 
 def main():
     print_startup_banner()
     args = parse_args()
 
     client_type = "cli" if args.mode == "cli" else "gui"
-    client = TicTacToeClient(args.server, client_type)
+    server_url = resolve_server(args.server)
+
+    client = TicTacToeClient(server_url, client_type)
 
     try:
         if args.mode == "cli":
@@ -779,7 +809,6 @@ def main():
     except KeyboardInterrupt:
         client.safe_leave()
         print("\nExiting.")
-
 
 if __name__ == "__main__":
     main()
