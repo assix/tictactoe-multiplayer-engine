@@ -14,12 +14,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        // Use your computer IP when running backend locally.
-        // Example: http://192.168.1.50:8000/
         buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8000/\"")
-        // For emulator use 10.0.2.2
-        // For real phone on same Wi-Fi, replace with your PC LAN IP:
-        // "http://192.168.x.x:8000/"
     }
 
     buildTypes {
@@ -35,6 +30,11 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
