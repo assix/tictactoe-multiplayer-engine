@@ -128,11 +128,16 @@ python3 client.py --server http://192.168.1.50:8000
 
 ### Linux GUI Client
 
-![GUI Client](screenshots/gui.png)
+<p align="center">
+  <img src="screenshots/gui.png" width="50%">
+</p>
 
 ### CLI Client
 
-![CLI Client](screenshots/cli.png)
+<p align="center">
+  <img src="screenshots/cli.png" width="50%">
+</p>
+
 
 ## CLI Gameplay
 
