@@ -47,9 +47,7 @@ tictactoe-multiplayer-engine/
 ├── requirements.txt
 │   Python dependencies
 │
-├── README.md
-│
-└── .gitignore
+└── README.md
 ```
 
 ---
