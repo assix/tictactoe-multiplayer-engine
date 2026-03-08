@@ -124,6 +124,16 @@ Use any custom server URL:
 python3 client.py --server http://192.168.1.50:8000
 ```
 
+## Screenshots
+
+### Linux GUI Client
+
+![GUI Client](screenshots/gui.png)
+
+### CLI Client
+
+![CLI Client](screenshots/cli.png)
+
 ## CLI Gameplay
 
 When the CLI starts, press Enter to auto-join the default room.
@@ -213,30 +223,6 @@ Recommended start command:
 ```bash
 uvicorn main:app --host 0.0.0.0 --port $PORT --no-access-log
 ```
-
-## Suggested GitHub Topics
-
-```text
-tictactoe
-multiplayer
-fastapi
-python
-game-server
-client-server
-tkinter
-cli
-android
-render
-```
-
-## Future Improvements
-
-- WebSocket-based real-time updates
-- Persistent room and score storage
-- User accounts
-- Spectator mode
-- Browser client
-- Automated APK builds with GitHub Actions
 
 ## License
 
